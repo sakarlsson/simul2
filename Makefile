@@ -8,5 +8,6 @@ simul2: $(OBJS)
 clean: 
 	rm -f $(OBJS) simul2
 
-test:
-	runtest.sh
+.PHONY: test
+test: simul2 runtest.sh
+	./runtest.sh
