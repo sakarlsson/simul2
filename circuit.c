@@ -74,7 +74,7 @@ int parse_one_segment_line(double *radius, double *length, char *buf)
   i = strspn(p, " \t");
   p = p + i;
   *length = atof(p);
-  /* printf("%f %f\n", *radius, *length); */
+  printf("%f %f\n", *radius, *length);
   return 0;
 }
 

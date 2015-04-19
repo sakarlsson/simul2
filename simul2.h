@@ -6,7 +6,7 @@
 #define GRAVITATION 9.81
 
 /* Simulation step lenght in m */
-#define SIM_STEP_LENGTH 0.1
+#define SIM_STEP_LENGTH 1
 
 /* Unreachable speed m/s */
 #define VBIG 140

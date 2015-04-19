@@ -47,12 +47,14 @@ int main (int argc, char **argv)
   ReadCar(carfile, &car);
   ReadCircuit(trackfile, &circuit);
   lap = RunOneLap(&circuit, &car);
-  printf("# T: s\n");  
-  printf("# C0: vmxrad, m/s, 1, 0, 0, 80, red\n");
-  printf("# C1: brake, m/s, 1, 0, 0, 80, blue\n");
-  printf("# C2: power, m/s, 1, 0, 0, 80, green\n");
-  printf("# C3: speed, m/s, 1, 0, 0, 80, white\n");
-  printf("# Data: -\n");
+  fprintf(stderr,"# T: s\n");  
+  fprintf(stderr,"# C0: vmxrad, m/s, 1, 0, 0, 80, red\n");
+  fprintf(stderr,"# C1: brake, m/s, 1, 0, 0, 80, blue\n");
+  fprintf(stderr,"# C2: power, m/s, 1, 0, 0, 80, green\n");
+  fprintf(stderr,"# C3: speed, m/s, 1, 0, 0, 80, white\n");
+  fprintf(stderr,"# Data: -\n");
+  
+  fprintf(stderr,"lap->segments %d\n", lap->segments);
   
   t = 0;
   for (i=0; i<lap->segments; i++) {
@@ -71,5 +73,6 @@ int main (int argc, char **argv)
     }
     t += lap->deltatime[i];
   }
+  exit(0);
 }
 
