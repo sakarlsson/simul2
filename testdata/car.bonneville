@@ -24,18 +24,18 @@ g_max_accel:	0.7
 
 
 # Engine 
-power:		200000		# Engine power in wats (linear 
+power:		600000		# Engine power in wats (linear 
 				# interpolation = constant tourqe assumed) 
-maxrps:		65		# Maximum r/s 
+maxrps:		108		# Maximum r/s 
 
 # Transmission 
 
 shift_time:		0.7	# Time without power between shifts in s 
 
-gears:			2.05, 1.75, 1.48, 1.00, 0.81
+gears:			2.97,2.10,1.46,1.00,0.74,0.50
 
-endgear:		3.73	# 
-circumference:		1.856	# m, driving wheels circumference 
+endgear:		3.00	# 
+circumference:		2.00	# m, driving wheels circumference 
 
 # Aerodynamics
 

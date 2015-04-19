@@ -27,6 +27,7 @@ struct Lap *RunOneLap(struct Circuit *circuit, struct Car *car)
   lap->deltatime = malloc(sizeof(double)*lap->segments);
   lap->rpsdata = malloc(sizeof(double)*lap->segments);
   lap->geardata = malloc(sizeof(double)*lap->segments);
+  lap->drag = malloc(sizeof(double)*lap->segments);
   
   
   /* Go through each segment of the circuit and calculate the maximum speed
@@ -83,28 +84,15 @@ struct Lap *RunOneLap(struct Circuit *circuit, struct Car *car)
   
   shifttimer = 0;
   gear = car->ngears - 1;
-  keepgear = -1;		/* Dont keep gear */
   for (i= 0; i < lap->segments; i++) {
 	prevg = gear;
 	p = power(car, prev_v, &rps, &gear);
-	if (prevg != gear) {
-	    p = - road_and_aero_drag(car, prev_v);
-	    shifttimer = car->shift_time;
-	} else if (shifttimer > 0) {
-	    shifttimer -= circuit->dl/prev_v;
-	    /* This is more correct but we must first solve the
-	       problem cused by the car slowing down a bit when we
-	       lift the throttle which causes this silly algorthm to
-	       conclude that a lower gear
-	       is possible again!
-	       p = - road_and_aero_drag(car, prev_v); */
-	    p = 0;
-	}
-	/*	printf("A:%d   p %f st, %f, g %d, rps %d\n", i, p, shifttimer, gear, rps); */
+	lap->drag[i] = road_and_aero_drag(car, prev_v);
+
 	e1 = car->Wt * (prev_v * prev_v) / 2;
 	e2 = e1 + (p/prev_v) * circuit->dl;
 	v = sqrt(e2 * 2 / car->Wt);
-	/*	printf("A: v %f, %f\n", v, lap->vmax_radius[i]); */
+
 	if (lap->vmax_radius[i] > v) {
 	    lap->vmax_power[i] = v;
 	} else {

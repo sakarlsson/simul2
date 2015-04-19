@@ -209,7 +209,7 @@ double power(struct Car *car, double v, int *rps, int *gear)
 /* Road load from Heywood p.49 */
 double road_and_aero_drag(struct Car *car, double v) {
   return (car->Cr * car->Wt * 9.81 + 0.5 * 1.22 *
-			  car->CdTotal * car->front_area * v * v) * v;
+	  car->Cd0 * car->front_area * (v * v)) * v;
 }
 
 /* Given a car and a speed v returns downforce in N */

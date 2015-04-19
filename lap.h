@@ -9,6 +9,7 @@ struct Lap {
   double *deltatime;
   double *rpsdata;
   double *geardata;
+  double *drag;
 };
 
 
