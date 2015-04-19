@@ -1,7 +1,14 @@
+#include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
 #include "car.h"
 #include "circuit.h"
 #include "lap.h"
+ 
+
+
 
 int feq(double f1, double f2)
 {
@@ -11,16 +18,34 @@ int feq(double f1, double f2)
   return strcmp(s1,s2);
 }
 
-main()
+int main (int argc, char **argv)
 {
   struct Car car;
   struct Circuit circuit;
   struct Lap *lap;
   double t;
   int i;
+  char *carfile = NULL;
+  char *trackfile = NULL;
+  int c;
 
-  ReadCar("data", &car);
-  ReadCircuit("circuit", &circuit);
+  opterr = 0;
+  while ((c = getopt (argc, argv, "c:t:")) != -1) {
+    switch (c)
+      {
+      case 't':
+        trackfile = optarg;
+        break;
+      case 'c':
+        carfile = optarg;
+        break;
+      default:
+        abort ();
+      }
+  }
+
+  ReadCar(carfile, &car);
+  ReadCircuit(trackfile, &circuit);
   lap = RunOneLap(&circuit, &car);
   printf("# T: s\n");  
   printf("# C0: vmxrad, m/s, 1, 0, 0, 80, red\n");

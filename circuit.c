@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <regex.h>
+#include <string.h>
 #include <stdio.h>
 #include "simul2.h"
 #include "circuit.h"
