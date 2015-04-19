@@ -1,0 +1,54 @@
+twidth:		0.205
+tprofile:	50
+trim:		15
+
+wheelbase:	2.635
+tf:		1.39
+tr:		1.36
+Zf:		0.103
+Zr:		0.280
+Kof:		968
+Kr1:		43000
+Kr1Inst:	1.2
+
+Wt:		1120
+Wf:		650
+Wr:		470
+
+h:		0.4	
+
+# Simple car performance model
+g_max_lateral:	1.0
+g_max_brake:	0.9
+g_max_accel:	0.7
+
+
+# Engine 
+power:		200000		# Engine power in wats (linear 
+				# interpolation = constant tourqe assumed) 
+maxrps:		65		# Maximum r/s 
+
+# Transmission 
+
+shift_time:		0.7	# Time without power between shifts in s 
+
+gears:			2.05, 1.75, 1.48, 1.00, 0.81
+
+endgear:		3.73	# 
+circumference:		1.856	# m, driving wheels circumference 
+
+# Aerodynamics
+
+front_area:	2.25		# m^2 
+area:		6.0		# m^2 
+
+Cl0:		0.2		# Original body Lift  
+Cl:		-0.5		# Lift with aero modifications 
+
+Cd0:		0.42		# Orgiginal body drag 
+
+# Rolling resistance 
+Cr:		0.013		# E.g 0.013 
+
+
+
