@@ -34,7 +34,7 @@ shift_time:		0.7	# Time without power between shifts in s
 
 gears:			2.97,2.10,1.46,1.00,0.74,0.50
 
-endgear:		3.00	# 
+endgear:		3.00	#  
 circumference:		2.00	# m, driving wheels circumference 
 
 # Aerodynamics
