@@ -24,9 +24,9 @@ g_max_accel:	0.7
 
 
 # Engine 
-power:		600000		# Engine power in wats (linear 
+power:		620000		# Engine power in wats (linear 
 				# interpolation = constant tourqe assumed) 
-maxrps:		108		# Maximum r/s 
+maxrps:		116		# Maximum r/s 
 
 # Transmission 
 
@@ -44,7 +44,7 @@ area:		6.0		# m^2
 
 Cl0:		0.2		# Original body Lift  
 Cl:		-0.5		# Lift with aero modifications 
-
+p
 Cd0:		0.35		# Orgiginal body drag 
 
 # Rolling resistance 
