@@ -10,6 +10,7 @@ struct Lap {
   double *rpsdata;
   double *geardata;
   double *drag;
+  double *power;
 };
 
 

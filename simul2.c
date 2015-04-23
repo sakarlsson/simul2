@@ -63,7 +63,7 @@ int main (int argc, char **argv)
 	feq(lap->vmax_power[i-1], lap->vmax_power[i]) ||
 	feq(lap->vmax_combined[i-1], lap->vmax_combined[i])) {
 
-      printf("%.4f %.2f %.2f %.2f %.2f %.2f %.2f %.2f\n",
+      printf("%.4f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f\n",
 	     t,
 	     lap->vmax_radius[i],
 	     lap->vmax_brake[i],
@@ -71,7 +71,8 @@ int main (int argc, char **argv)
 	     lap->vmax_combined[i],
 	     lap->rpsdata[i],
 	     lap->geardata[i]+1,
-	     lap->drag[i]
+	     lap->drag[i],
+	     lap->power[i]
 	     );
     }
     t += lap->deltatime[i];

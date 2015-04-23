@@ -39,13 +39,13 @@ circumference:		2.00	# m, driving wheels circumference
 
 # Aerodynamics
 
-front_area:	2.25		# m^2 
+front_area:	1.92		# m^2 
 area:		6.0		# m^2 
 
 Cl0:		0.2		# Original body Lift  
 Cl:		-0.5		# Lift with aero modifications 
 
-Cd0:		0.42		# Orgiginal body drag 
+Cd0:		0.35		# Orgiginal body drag 
 
 # Rolling resistance 
 Cr:		0.013		# E.g 0.013 
