@@ -188,19 +188,26 @@ int Curv2WheelLoads(struct Car *ch, struct Curve *cu) {
 
 }
 
-/* Return total propulsion power in wats given a Car and a speed v,
+/* Return wheel power in wats given a Car and a speed v,
    also fills in resulting rps and gear */
-double power(struct Car *car, double v, int *rps, int *gear)
+double wheelpower(struct Car *car, double v, int *rps, int *gear, double *force)
 {
   int g;
 
   for (g=0; g<car->ngears; g++) {
     *rps = (int) ((v/car->circumference) * car->gears[g] * car->endgear);
 
+
     if (*rps < car->maxrps) {
       *gear = g;
+      double power, rads, torque;
+      power = (*rps/(double)car->maxrps) * car->power;
 
-      return (*rps/(double)car->maxrps) * car->power - road_and_aero_drag(car, v);
+      rads = (*rps / (car->gears[g] * car->endgear)) *  2 * PI; 	/* wheel rad/s  */
+      torque = power / rads;
+      *force = torque / (car->circumference / (2 * PI));
+
+      return power;
     }
   }
   return 0;

@@ -32,10 +32,13 @@ maxrps:		116		# Maximum r/s
 
 shift_time:		0.7	# Time without power between shifts in s 
 
-gears:			2.97,2.10,1.46,1.00,0.74,0.50
+#gears:			2.97,2.10,1.46,1.00,0.74,0.50
+gears:			2.66,1.78,1.30,1.00,0.80,0.63
 
-endgear:		3.00	#  
-circumference:		2.00	# m, driving wheels circumference 
+endgear:		3.00	# 
+# 2.00 25 tum    1.83 23 tum
+circumference:	2.00		# m, driving wheels circumference 
+
 
 # Aerodynamics
 
@@ -45,7 +48,7 @@ area:		6.0		# m^2
 Cl0:		0.2		# Original body Lift  
 Cl:		-0.5		# Lift with aero modifications 
 p
-Cd0:		0.35		# Orgiginal body drag 
+Cd0:		0.31		# Orgiginal body drag 
 
 # Rolling resistance 
 Cr:		0.013		# E.g 0.013 

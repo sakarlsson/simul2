@@ -14,7 +14,9 @@ struct Lap *RunOneLap(struct Circuit *circuit, struct Car *car)
   int i, gear, keepgear, prevg, rps;
   struct Lap *lap;
   double prev_v, p, shifttimer;
-  double e2, e1, v;		
+  double e2, e1, v;
+  double power, drag, force;
+		
   
   lap = malloc(sizeof(struct Lap));
   lap->segments = circuit->segments;
@@ -29,6 +31,7 @@ struct Lap *RunOneLap(struct Circuit *circuit, struct Car *car)
   lap->geardata = malloc(sizeof(double)*lap->segments);
   lap->drag = malloc(sizeof(double)*lap->segments);
   lap->power = malloc(sizeof(double)*lap->segments);
+  lap->force = malloc(sizeof(double)*lap->segments);
   
   
   /* Go through each segment of the circuit and calculate the maximum speed
@@ -60,20 +63,21 @@ struct Lap *RunOneLap(struct Circuit *circuit, struct Car *car)
      comes from is at most what the brakes can handle. */
 
   prev_v = lap->vmax_radius[0];
-  for (i = lap->segments - 1; i >= 0; i--) {
-    /* Using energy calculation e = m*v^2/2 */
-    e2 = car->Wt * (prev_v * prev_v)/2;
+  for (i = lap->segments - 1; i >= 0; i--){
+      drag = road_and_aero_drag(car, prev_v);
+      /* Using energy calculation e = m*v^2/2 */
+      e2 = car->Wt * (prev_v * prev_v)/2;
 
-    /* Using energy calculation e = f * l (and f = m * a) */
-    e1 = car->Wt * car->g_max_brake * circuit->dl + e2;
+      /* Using energy calculation e = f * l (and f = m * a) */
+      e1 = car->Wt * car->g_max_brake * circuit->dl + e2 + drag;
 
-    v = sqrt(e1 * 2 / car->Wt);
-    if (lap->vmax_radius[i] > v) {
-      lap->vmax_brake[i] = v;
-    } else {
-      lap->vmax_brake[i] = lap->vmax_radius[i];
-    }
-    prev_v = lap->vmax_brake[i];
+      v = sqrt(e1 * 2 / car->Wt);
+      if (lap->vmax_radius[i] > v) {
+	  lap->vmax_brake[i] = v;
+      } else {
+	  lap->vmax_brake[i] = lap->vmax_radius[i];
+      }
+      prev_v = lap->vmax_brake[i];
   }
 
   /* Go forward through the circuit and accelerate as much as possible 
@@ -87,12 +91,12 @@ struct Lap *RunOneLap(struct Circuit *circuit, struct Car *car)
   gear = car->ngears - 1;
   for (i= 0; i < lap->segments; i++) {
 	prevg = gear;
-	p = power(car, prev_v, &rps, &gear);
-	lap->power[i] = p;
-	lap->drag[i] = road_and_aero_drag(car, prev_v);
+	lap->power[i] = power = wheelpower(car, prev_v, &rps, &gear, &force);;
+	lap->force[i] = force;
+	drag = road_and_aero_drag(car, prev_v);
 
 	e1 = car->Wt * (prev_v * prev_v) / 2;
-	e2 = e1 + (p/prev_v) * circuit->dl;
+	e2 = e1 + ((power-drag)/prev_v) * circuit->dl;
 	v = sqrt(e2 * 2 / car->Wt);
 
 	if (lap->vmax_radius[i] > v) {
@@ -116,6 +120,7 @@ struct Lap *RunOneLap(struct Circuit *circuit, struct Car *car)
       v = lap->vmax_power[i];
     }
     lap->vmax_combined[i] = v;
+    lap->drag[i] = road_and_aero_drag(car, v);
     lap->deltatime[i] = circuit->dl/v;
   }
   return lap;

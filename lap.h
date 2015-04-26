@@ -11,6 +11,7 @@ struct Lap {
   double *geardata;
   double *drag;
   double *power;
+  double *force;
 };
 
 
