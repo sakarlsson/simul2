@@ -32,6 +32,7 @@ struct Lap *RunOneLap(struct Circuit *circuit, struct Car *car)
   lap->drag = malloc(sizeof(double)*lap->segments);
   lap->power = malloc(sizeof(double)*lap->segments);
   lap->force = malloc(sizeof(double)*lap->segments);
+  lap->energy = malloc(sizeof(double)*lap->segments);
   
   
   /* Go through each segment of the circuit and calculate the maximum speed
@@ -122,6 +123,7 @@ struct Lap *RunOneLap(struct Circuit *circuit, struct Car *car)
     lap->vmax_combined[i] = v;
     lap->drag[i] = road_and_aero_drag(car, v);
     lap->deltatime[i] = circuit->dl/v;
+    lap->energy[i] = (i==0? 0.0:lap->energy[i-1]) + lap->power[i] * lap->deltatime[i];
   }
   return lap;
 }

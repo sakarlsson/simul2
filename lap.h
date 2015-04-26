@@ -12,6 +12,7 @@ struct Lap {
   double *drag;
   double *power;
   double *force;
+  double *energy;
 };
 
 
