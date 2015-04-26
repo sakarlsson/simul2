@@ -188,6 +188,10 @@ int Curv2WheelLoads(struct Car *ch, struct Curve *cu) {
 
 }
 
+double min(double a, double b) {
+    if (a<b) return a; else return b;
+}
+
 /* Return wheel power in wats given a Car and a speed v,
    also fills in resulting rps and gear */
 double wheelpower(struct Car *car, double v, int *rps, int *gear, double *force)
@@ -197,7 +201,6 @@ double wheelpower(struct Car *car, double v, int *rps, int *gear, double *force)
   for (g=0; g<car->ngears; g++) {
     *rps = (int) ((v/car->circumference) * car->gears[g] * car->endgear);
 
-
     if (*rps < car->maxrps) {
       *gear = g;
       double power, rads, torque;
@@ -205,12 +208,22 @@ double wheelpower(struct Car *car, double v, int *rps, int *gear, double *force)
 
       rads = (*rps / (car->gears[g] * car->endgear)) *  2 * PI; 	/* wheel rad/s  */
       torque = power / rads;
-      *force = torque / (car->circumference / (2 * PI));
+      /* *force = torque / (car->circumference / (2 * PI)); */
+      *force = min( torque / (car->circumference / (2 * PI)), traction(car, v));
+      torque = *force * car->circumference / (2 * PI);
+      power = torque * rads;
 
       return power;
     }
   }
   return 0;
+}
+
+
+double traction(struct Car *car, double v) {
+    /* Use half the downforce for rear taction */
+    double dfrear = downforce(car, v) / 2;
+    return  (car->Wr * 9.82 + dfrear) * car->g_max_accel;
 }
 
 /* Road load from Heywood p.49 */
@@ -221,7 +234,5 @@ double road_and_aero_drag(struct Car *car, double v) {
 
 /* Given a car and a speed v returns downforce in N */
 double downforce(struct Car *car, double v) {
-
     return  v * v * 1.23 * 0.5 * (- car->Cl) * car->area;
-
 }

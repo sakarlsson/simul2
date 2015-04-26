@@ -20,7 +20,7 @@ h:		0.4
 # Simple car performance model
 g_max_lateral:	1.0
 g_max_brake:	0.9
-g_max_accel:	0.7
+g_max_accel:	0.6
 
 
 # Engine 
@@ -48,7 +48,7 @@ area:		6.0		# m^2
 Cl0:		0.2		# Original body Lift  
 Cl:		-0.5		# Lift with aero modifications 
 p
-Cd0:		0.31		# Orgiginal body drag 
+Cd0:		0.35		# Orgiginal body drag 
 
 # Rolling resistance 
 Cr:		0.013		# E.g 0.013 

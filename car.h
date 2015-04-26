@@ -70,3 +70,4 @@ struct Curve {
 double wheelpower(struct Car *car, double v, int *rps, int *gear, double *force);
 double road_and_aero_drag(struct Car *car, double v);
 double downforce(struct Car *car, double v);
+double traction(struct Car *car, double v);
